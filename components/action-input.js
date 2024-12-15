@@ -29,6 +29,12 @@ class ActionInput extends HTMLElement {
   connectedCallback() {
     const template = templateElement.content.cloneNode(true);
     this.shadowRoot.appendChild(template);
+
+    this.shadowRoot
+      .querySelector("input")
+      .setAttribute("placeholder", this.placeholder);
+
+    this.shadowRoot.querySelector("button").textContent = this.btnContent;
   }
 }
 
