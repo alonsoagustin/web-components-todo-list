@@ -28,5 +28,6 @@ class ActionInput extends HTMLElement {
 
   connectedCallback() {
     const template = templateElement.content.cloneNode(true);
+    this.shadowRoot.appendChild(template);
   }
 }
