@@ -6,7 +6,7 @@ templateElement.innerHTML = `
 
 <div>
     <input type="text">
-    <button></button>
+    <button disabled></button>
 </div>
 `;
 
@@ -28,6 +28,14 @@ class ActionInput extends HTMLElement {
 
     input.setAttribute("placeholder", this.placeholder);
     button.textContent = this.btnContent;
+
+    input.addEventListener("input", () => {
+      if (input.value !== "") {
+        button.removeAttribute("disabled");
+      } else {
+        button.setAttribute("disabled", "");
+      }
+    });
 
     button.addEventListener("click", () => {
       const customEvent = new CustomEvent("submit-action-input", {
