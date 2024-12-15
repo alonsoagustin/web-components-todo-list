@@ -12,13 +12,6 @@ templateElement.innerHTML = `
 
 class ActionInput extends HTMLElement {
   constructor() {
-    /* 
-  constructor() {}
-  connectedCallback() {}
-  disconnectedCallback() {}
-  static get observedAttributes() {}
-  attributeChangedCallback(attrName, oldValue, newValue) {}
-  */
     super();
     this.placeholder =
       this.getAttribute("placeholder") ?? "What do you need to do?";
