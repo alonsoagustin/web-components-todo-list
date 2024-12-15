@@ -25,4 +25,8 @@ class ActionInput extends HTMLElement {
     this.btnContent = this.getAttribute("btn-content") ?? "Save";
     this.attachShadow({ mode: "open" });
   }
+
+  connectedCallback() {
+    const template = templateElement.content.cloneNode(true);
+  }
 }
