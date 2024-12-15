@@ -30,11 +30,11 @@ class ActionInput extends HTMLElement {
     const template = templateElement.content.cloneNode(true);
     this.shadowRoot.appendChild(template);
 
-    this.shadowRoot
-      .querySelector("input")
-      .setAttribute("placeholder", this.placeholder);
+    const input = this.shadowRoot.querySelector("input");
+    const button = this.shadowRoot.querySelector("button");
 
-    this.shadowRoot.querySelector("button").textContent = this.btnContent;
+    input.setAttribute("placeholder", this.placeholder);
+    button.textContent = this.btnContent;
   }
 }
 
