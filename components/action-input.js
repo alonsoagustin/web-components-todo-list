@@ -35,6 +35,16 @@ class ActionInput extends HTMLElement {
 
     input.setAttribute("placeholder", this.placeholder);
     button.textContent = this.btnContent;
+
+    button.addEventListener("click", () => {
+      console.log(input.value);
+
+      const customEvent = new CustomEvent("submit-action-input", {
+        detail: input.value,
+      });
+
+      this.dispatchEvent(customEvent);
+    });
   }
 }
 
