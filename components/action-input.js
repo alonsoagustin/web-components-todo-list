@@ -31,3 +31,5 @@ class ActionInput extends HTMLElement {
     this.shadowRoot.appendChild(template);
   }
 }
+
+window.customElements.define("action-input", ActionInput);
