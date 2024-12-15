@@ -1,6 +1,6 @@
 const templateElement = document.createElement("template");
 
-templateElement.innerHtml = `
+templateElement.innerHTML = `
 <style>
 </style>
 
