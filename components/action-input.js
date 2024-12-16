@@ -43,6 +43,7 @@ class ActionInput extends HTMLElement {
       });
       this.dispatchEvent(customEvent);
       input.value = "";
+      button.setAttribute("disabled", "");
     });
   }
 }
