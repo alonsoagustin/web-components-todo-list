@@ -59,6 +59,13 @@ class ActionItem extends HTMLElement {
   static get observedAttributes() {
     return ["span-content"];
   }
+
+  attributeChangedCallback(attrName, oldValue, newValue) {
+    const span = this.shadowRoot.querySelector("span");
+    if (attrName === "span-content") {
+      span.textContent = newValue;
+    }
+  }
 }
 
 window.customElements.define("action-item", ActionItem);
