@@ -21,14 +21,29 @@ class TodoList extends HTMLElement {
     const template = templateElement.content.cloneNode(true);
     this.shadowRoot.appendChild(template);
 
-    const div = this.shadowRoot.querySelector("div");
     const actionInput = this.shadowRoot.querySelector("action-input");
 
+    let currentInputs = JSON.parse(localStorage.getItem("inputs")) ?? [];
+
     actionInput.addEventListener("submit-action-input", (event) => {
-      const actionItem = document.createElement("action-item");
-      div.appendChild(actionItem);
-      actionItem.setAttribute("span-content", event.detail);
+      this.createActionItem(event.detail);
+      currentInputs = JSON.parse(localStorage.getItem("inputs")) ?? [];
+      localStorage.setItem(
+        "inputs",
+        JSON.stringify([...currentInputs, { detail: event.detail }])
+      );
     });
+
+    for (const input of currentInputs) {
+      this.createActionItem(input.detail);
+    }
+  }
+
+  createActionItem(spanContent) {
+    const div = this.shadowRoot.querySelector("div");
+    const actionItem = document.createElement("action-item");
+    div.appendChild(actionItem);
+    actionItem.setAttribute("span-content", spanContent);
   }
 }
 
