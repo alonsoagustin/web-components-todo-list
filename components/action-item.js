@@ -55,6 +55,10 @@ class ActionItem extends HTMLElement {
       this.remove();
     });
   }
+
+  static get observedAttributes() {
+    return ["span-content"];
+  }
 }
 
 window.customElements.define("action-item", ActionItem);
