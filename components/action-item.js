@@ -33,6 +33,8 @@ class ActionItem extends HTMLElement {
 
     span.textContent = this.spanContent;
     button.textContent = this.btnContent;
+
+    this.setAttribute("id", Date.now());
   }
 }
 
