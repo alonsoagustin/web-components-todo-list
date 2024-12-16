@@ -45,6 +45,15 @@ class ActionItem extends HTMLElement {
       });
       this.dispatchEvent(customEvent);
     });
+
+    button.addEventListener("click", () => {
+      const customEvent = new CustomEvent("status-action-item", {
+        detail: "removed",
+        id: this.id,
+      });
+      this.dispatchEvent(customEvent);
+      this.remove();
+    });
   }
 }
 
