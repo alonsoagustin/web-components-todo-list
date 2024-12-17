@@ -26,6 +26,11 @@ class TodoList extends HTMLElement {
     let currentInputs = JSON.parse(localStorage.getItem("inputs")) ?? [];
 
     actionInput.addEventListener("submit-action-input", (event) => {
+      const id = event.detail.id;
+      const value = event.detail.value;
+      const isCompleted = event.detail.isCompleted;
+      const isDeleted = event.detail.isDeleted;
+
       this.createActionItem(event.detail);
       currentInputs = JSON.parse(localStorage.getItem("inputs")) ?? [];
       localStorage.setItem(
@@ -33,10 +38,10 @@ class TodoList extends HTMLElement {
         JSON.stringify([
           ...currentInputs,
           {
-            id: event.detail.id,
-            value: event.detail.value,
-            isCompleted: event.detail.isCompleted,
-            isDeleted: event.detail.isDeleted,
+            id,
+            value,
+            isCompleted,
+            isDeleted,
           },
         ])
       );
@@ -68,7 +73,7 @@ class TodoList extends HTMLElement {
     actionItem.setAttribute("span-content", detail.value);
     actionItem.setAttribute("id", detail.id);
 
-    let currentInputs = JSON.parse(localStorage.getItem("inputs"));
+    let currentInputs = JSON.parse(localStorage.getItem("inputs")) ?? [];
 
     actionItem.addEventListener("status-input-checkbox", (event) => {
       currentInputs.map((input) => {
