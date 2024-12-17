@@ -73,24 +73,26 @@ class TodoList extends HTMLElement {
     actionItem.setAttribute("span-content", detail.value);
     actionItem.setAttribute("id", detail.id);
 
-    let currentInputs = JSON.parse(localStorage.getItem("inputs")) ?? [];
+    function updateInput(property, newValue) {
+      const id = actionItem.getAttribute("id");
+      let currentInputs = JSON.parse(localStorage.getItem("inputs")) ?? [];
+      currentInputs = currentInputs.map((input) => {
+        if (input.id === +id) {
+          return { ...input, [property]: newValue };
+        }
+        return input;
+      });
+      localStorage.setItem("inputs", JSON.stringify(currentInputs));
+    }
 
     actionItem.addEventListener("status-input-checkbox", (event) => {
-      currentInputs.map((input) => {
-        if (input.id === +event.detail.id) {
-          input.isCompleted = event.detail.status;
-          localStorage.setItem("inputs", JSON.stringify(currentInputs));
-        }
-      });
+      const { status } = event.detail;
+      updateInput("isCompleted", status);
     });
 
     actionItem.addEventListener("status-action-item", (event) => {
-      currentInputs.map((input) => {
-        if (input.id === +event.detail.id) {
-          input.isDeleted = event.detail.removed;
-          localStorage.setItem("inputs", JSON.stringify(currentInputs));
-        }
-      });
+      const { removed } = event.detail;
+      updateInput("isDeleted", removed);
     });
 
     return actionItem;
