@@ -53,6 +53,10 @@ class TodoList extends HTMLElement {
       } else {
         span.classList.remove("checked");
       }
+
+      if (currentInput.isDeleted) {
+        actionItem.remove();
+      }
     }
   }
 
@@ -64,8 +68,9 @@ class TodoList extends HTMLElement {
     actionItem.setAttribute("span-content", detail.value);
     actionItem.setAttribute("id", detail.id);
 
+    let currentInputs = JSON.parse(localStorage.getItem("inputs"));
+
     actionItem.addEventListener("status-input-checkbox", (event) => {
-      let currentInputs = JSON.parse(localStorage.getItem("inputs"));
       currentInputs.map((input) => {
         if (input.id === +event.detail.id) {
           input.isCompleted = event.detail.status;
@@ -73,6 +78,16 @@ class TodoList extends HTMLElement {
         }
       });
     });
+
+    actionItem.addEventListener("status-action-item", (event) => {
+      currentInputs.map((input) => {
+        if (input.id === +event.detail.id) {
+          input.isDeleted = event.detail.removed;
+          localStorage.setItem("inputs", JSON.stringify(currentInputs));
+        }
+      });
+    });
+
     return actionItem;
   }
 }
