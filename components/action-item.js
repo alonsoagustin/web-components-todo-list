@@ -45,8 +45,7 @@ class ActionItem extends HTMLElement {
 
     button.addEventListener("click", () => {
       const customEvent = new CustomEvent("status-action-item", {
-        detail: "removed",
-        id: this.id,
+        detail: { id: this.id, removed: true },
       });
       this.dispatchEvent(customEvent);
       this.remove();
