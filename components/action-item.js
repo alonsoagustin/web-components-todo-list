@@ -34,14 +34,11 @@ class ActionItem extends HTMLElement {
     span.textContent = this.spanContent;
     button.textContent = this.btnContent;
 
-    this.setAttribute("id", Date.now());
-
     input.addEventListener("change", () => {
       const status = input.checked;
       span.classList.toggle("checked");
       const customEvent = new CustomEvent("status-input-checkbox", {
-        detail: status,
-        id: this.id,
+        detail: { id: this.getAttribute("id"), status },
       });
       this.dispatchEvent(customEvent);
     });
