@@ -39,7 +39,12 @@ class ActionInput extends HTMLElement {
 
     button.addEventListener("click", () => {
       const customEvent = new CustomEvent("submit-action-input", {
-        detail: input.value,
+        detail: {
+          id: Date.now(),
+          value: input.value,
+          isCompleted: false,
+          isDeleted: false,
+        },
       });
       this.dispatchEvent(customEvent);
       input.value = "";
