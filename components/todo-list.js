@@ -8,12 +8,14 @@ templateElement.innerHTML = `
 
 <div>
     <action-input></action-input>
+    <button></button>
 </div>
 `;
 
 class TodoList extends HTMLElement {
   constructor() {
     super();
+    this.btnContent = this.getAttribute("btn-content") ?? "Clear Completed";
     this.attachShadow({ mode: "open" });
   }
 
@@ -22,6 +24,9 @@ class TodoList extends HTMLElement {
     this.shadowRoot.appendChild(template);
 
     const actionInput = this.shadowRoot.querySelector("action-input");
+    const button = this.shadowRoot.querySelector("button");
+
+    button.textContent = this.btnContent;
 
     let currentInputs = JSON.parse(localStorage.getItem("inputs")) ?? [];
 
@@ -45,6 +50,24 @@ class TodoList extends HTMLElement {
           },
         ])
       );
+    });
+
+    button.addEventListener("click", () => {
+      currentInputs = JSON.parse(localStorage.getItem("inputs")) ?? [];
+      currentInputs = currentInputs.map((input) => {
+        console.log(
+          "isDeleted",
+          input.isDeleted,
+          "isCompleted",
+          input.isCompleted
+        );
+        if (input.isCompleted && !input.isDeleted) {
+          this.shadowRoot.getElementById(input.id).remove();
+          return { ...input, isDeleted: true };
+        }
+        return input;
+      });
+      localStorage.setItem("inputs", JSON.stringify(currentInputs));
     });
 
     for (const currentInput of currentInputs) {
